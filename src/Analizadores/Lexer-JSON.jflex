@@ -1,5 +1,5 @@
 package Analizadores;
-import java_cup.runtime.Symbol;
+import java_cup.runtime.*;
 import java.util.ArrayList;
 
 
@@ -52,7 +52,7 @@ COMILLA     =  [\"]
 
 <YYINITIAL> {SPACE}      {/* Espacios en blanco ignorado */}
 
-<YYINITIAL> {TITULO}   { return new Symbol(sym.TITULO, yycolumn, yyline);  System.out.println(yytext()); } 
+<YYINITIAL> {TITULO}   { return new Symbol(TITULO, yycolumn, yyline, new String(yytext())); } 
 
 <YYINITIAL> {COMMENTARIO}  {/*ignorando comentarios multilinea */ }
 
@@ -60,18 +60,18 @@ COMILLA     =  [\"]
 
 <YYINITIAL> {COMILLA}      {yybegin(CADENA);}
 
-<YYINITIAL> {LLAV_A}    { return new Symbol(sym.LLAV_A, yycolumn, yyline,new String(yytext())); System.out.println(yytext()); } 
+<YYINITIAL> {LLAV_A}    { return new Symbol(LLAV_A, yycolumn, yyline,new String(yytext()));  } 
 
-<YYINITIAL> {COMA}    {return new Symbol(sym.COMA, yycolumn, yyline); } 
+<YYINITIAL> {COMA}    {return new Symbol(COMA, yycolumn, yyline); } 
 
-<YYINITIAL> {LLAV_C}    {return new Symbol(sym.LLAV_C, yycolumn, yyline,new String(yytext())); System.out.println(yytext()); } 
+<YYINITIAL> {LLAV_C}    {return new Symbol(LLAV_C, yycolumn, yyline,new String(yytext()));  } 
 
-<YYINITIAL> {DOSPUNTO}  { return new Symbol(sym.DOSPUNTO, yycolumn, yyline,new String(yytext())); System.out.println(yytext());}
+<YYINITIAL> {DOSPUNTO}  { return new Symbol(DOSPUNTO, yycolumn, yyline,new String(yytext())); }
  
 <YYINITIAL> {ENTER}      {/* Espacios en blanco ignorado */}
 
 <CADENA>  {
-        [\"] { String tmp=cadena; cadena="";  yybegin(YYINITIAL); return new Symbol(sym.CADENA, yycolumn,yyline,tmp);}
+        [\"] { String tmp=cadena; cadena="";  yybegin(YYINITIAL); return new Symbol(CADENA, yycolumn,yyline,tmp);}
         [\n] { String tmp=cadena; cadena="";    System.out.println("Se esperaba cierre de cadena");
                 yybegin(YYINITIAL);
                 System.out.println(yytext());

@@ -3,7 +3,7 @@
 // source: src/Analizadores/Lexer-JSON.jflex
 
 package Analizadores;
-import java_cup.runtime.Symbol;
+import java_cup.runtime.*;
 import java.util.ArrayList;
 
 
@@ -732,22 +732,22 @@ public class Lexic implements java_cup.runtime.Scanner {
           // fall through
           case 16: break;
           case 4:
-            { return new Symbol(sym.COMA, yycolumn, yyline);
+            { return new Symbol(COMA, yycolumn, yyline);
             }
           // fall through
           case 17: break;
           case 5:
-            { return new Symbol(sym.DOSPUNTO, yycolumn, yyline,new String(yytext())); System.out.println(yytext());
+            { return new Symbol(DOSPUNTO, yycolumn, yyline,new String(yytext()));
             }
           // fall through
           case 18: break;
           case 6:
-            { return new Symbol(sym.LLAV_A, yycolumn, yyline,new String(yytext())); System.out.println(yytext());
+            { return new Symbol(LLAV_A, yycolumn, yyline,new String(yytext()));
             }
           // fall through
           case 19: break;
           case 7:
-            { return new Symbol(sym.LLAV_C, yycolumn, yyline,new String(yytext())); System.out.println(yytext());
+            { return new Symbol(LLAV_C, yycolumn, yyline,new String(yytext()));
             }
           // fall through
           case 20: break;
@@ -764,7 +764,7 @@ public class Lexic implements java_cup.runtime.Scanner {
           // fall through
           case 22: break;
           case 10:
-            { String tmp=cadena; cadena="";  yybegin(YYINITIAL); return new Symbol(sym.CADENA, yycolumn,yyline,tmp);
+            { String tmp=cadena; cadena="";  yybegin(YYINITIAL); return new Symbol(CADENA, yycolumn,yyline,tmp);
             }
           // fall through
           case 23: break;
@@ -779,7 +779,7 @@ public class Lexic implements java_cup.runtime.Scanner {
           // fall through
           case 25: break;
           case 13:
-            { return new Symbol(sym.TITULO, yycolumn, yyline);  System.out.println(yytext());
+            { return new Symbol(TITULO, yycolumn, yyline, new String(yytext()));
             }
           // fall through
           case 26: break;

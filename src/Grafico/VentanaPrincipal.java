@@ -4,9 +4,12 @@
  */
 package Grafico;
 
+import Analizadores.Lexic;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.StringReader;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -332,7 +335,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                     br = new BufferedReader(fr);
                     String linea;
                     contenido = contenido + "/** "+archivo.getName()+" **/" + "\n";
-                            
+                
                     while((linea=br.readLine())!= null)
                         contenido = contenido + linea + "\n";
                 }
@@ -367,6 +370,33 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         //AQUI SE USA EL ANALIZADOR JSON
         if ("JSON".equals(jLabel5.getText())){
             generarCompilador("Lexer-JSON.jflex");
+            
+                    funciona = false;
+        String cad = jTextArea2.getText();
+        Lexic.ErroresLexicos.clear();
+        //A_Sintactico.erroresSintacticos.clear();
+        Lexic lexico = new Lexic(new BufferedReader(new StringReader(cad)));
+    
+        //A_Sintactico sintactico = new A_Sintactico(lexico);
+//           try {
+//               
+//            //sintactico.parse();
+//            funciona = true;
+//            if (Lexico.ErroresLexicos.isEmpty() && sintactico.erroresSintacticos.isEmpty()) {
+//               Nodo raiz = sintactico.padre;
+//               
+//              
+//              // System.out.println(EjecutarOperaciones.ejecutar(raiz));
+//                JOptionPane.showMessageDialog(null, "COMPILADO CON EXITO", "ARCHIVO CONFIGURACION", JOptionPane.INFORMATION_MESSAGE);
+//            } else {
+//                JOptionPane.showMessageDialog(null, "NO SE PUEDE COMPILAR YA QUE TIENE ERRORES: ", "", JOptionPane.INFORMATION_MESSAGE);
+//            }
+//        } catch (FileNotFoundException ex) {
+//            System.out.println("ERROR e: " + ex);
+//        } catch (Exception ex) {
+//              JOptionPane.showMessageDialog(null, "NO SE PUEDE COMPILAR YA QUE TIENE ERRORE", "", JOptionPane.INFORMATION_MESSAGE);
+//           
+//        }
         }
         if ("StatPy".equals(jLabel5.getText())){
             System.out.println("Analizador StatPy");
