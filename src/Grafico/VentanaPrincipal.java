@@ -8,7 +8,9 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
+
 
 /**
  *
@@ -30,10 +32,24 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     
     public VentanaPrincipal() {
         
-        initComponents();
-        jLabel2.setText("Ningun Analizador Seleccionado");
+        initComponents();   
     }
 
+    
+    private static void generarCompilador(String nombreJflex){
+        try {
+            String ruta = "src/Analizadores/"; //ruta donde tenemos los archivos con extension .jflex y .cup
+            String opcFlex[] = { ruta + nombreJflex, "-d", ruta };
+            jflex.Main.generate(opcFlex);
+            
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -61,14 +77,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         jTextArea4 = new javax.swing.JTextArea();
         jButton1 = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
+        jMenuItem8 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
@@ -85,6 +102,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(51, 51, 51));
+        setLocation(new java.awt.Point(0, 0));
+        setLocationByPlatform(true);
+        setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("Analizador:");
@@ -125,6 +145,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel5.setText("Ningun Analizador a sido seleccionado");
+
         jMenu1.setText("Archivo");
         jMenu1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
 
@@ -145,18 +168,24 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jMenuItem3.setText("Guardar Como");
         jMenu1.add(jMenuItem3);
 
-        jMenuItem5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jMenuItem5.setText("Cambiar Analizador");
-        jMenu1.add(jMenuItem5);
-
         jMenuBar1.add(jMenu1);
-
-        jMenu2.setText("Analizador");
-        jMenu2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jMenuBar1.add(jMenu2);
 
         jMenu3.setText("Ejecutar");
         jMenu3.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+
+        jMenuItem8.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jMenuItem8.setText("Analizar");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem8);
+
+        jMenuItem5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jMenuItem5.setText("Cambiar Analizador");
+        jMenu3.add(jMenuItem5);
+
         jMenuBar1.add(jMenu3);
 
         jMenu5.setText("Reporte");
@@ -193,7 +222,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                         .addGap(64, 64, 64))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGap(69, 69, 69)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel2)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -210,7 +241,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel1)
+                                .addComponent(jLabel5))
                             .addComponent(jLabel2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                         .addComponent(jButton1)
@@ -232,9 +265,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // AQUI SE AGREGA LA ACCION AL ABRIR DOCUMENTOS
-        String contenido = "";
+       // AQUI SE AGREGA LA ACCION AL ABRIR DOCUMENTOS
         
+        //CREO TODA LA INSTANCIA PARA INICIARLIZAR JFILECHOOSE
+        String contenido = "";
         File archivo = null;
         FileReader fr = null;
         BufferedReader br = null;
@@ -246,46 +280,101 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             jf.setMultiSelectionEnabled(true);
         }
         int respuesta = jf.showOpenDialog(this);
-        System.out.println(respuesta);
         if (respuesta == JFileChooser.APPROVE_OPTION){
             archivo = new File(jf.getSelectedFile().toString());
             jTextArea1.removeAll();
         }else{
             jf.showDialog(this, "hola");
+        }   
+        
+        // COMPRUEBO CUANTOS ARCHIVOS EXISTEN PARA AGREGAR A JTEXTAREA2
+        archivoAbierto = true;
+        int limite = jf.getSelectedFiles().length;
+        int i = 0;
+        int a;
+        boolean statPy = false;
+        boolean existente = false;
+        String ext = "";
+        String fileName = "";
+        String extFile = "";
+        
+        // VERIFICO CUAL ES LA EXTENSION DEL PRIMER ARCHIVO QUE FUE SELECCIONADO
+        fileName = jf.getSelectedFiles()[i].toString();
+        a = fileName.lastIndexOf(".");
+        if (a > 0){
+            extFile = fileName.substring(a + 1);
         }
-               
-        try {
-            archivoAbierto = true;
-            System.out.println(jf.getSelectedFiles()[0]);
-              System.out.println(jf.getSelectedFiles()[1]);      
-            archivo = new File(jf.getSelectedFile().toString());
-            rutaAbierto = archivo.toString();
-            fr = new FileReader (archivo);
-            br = new BufferedReader(fr);
-            String linea;
-            while((linea=br.readLine())!= null)
-               contenido = contenido + linea + "\n";
-                    
+        if ("json".equals(extFile)){
+            jLabel5.setText("JSON");
+        }else{
+            jLabel5.setText("StatPy");
         }
-        catch(Exception e){
-            e.printStackTrace();
-        }finally{
-            try{
-            if (null != fr){
-                fr.close();
+       
+        //RECORRO EL ARREGLO DE ARCHIVOS SELECCIONADOS
+        while(i < limite){
+            try{    
+                fileName = jf.getSelectedFiles()[i].toString();
+                a = fileName.lastIndexOf(".");
+                if (a > 0){
+                    ext = fileName.substring(a + 1);
+                }
+                if ("sp".equals(ext) && statPy == true){
+                    existente = true;
+                }
+                //IGUALO QUE SOLO EL PRIMER ARCHIVO SELECCIONADO PUEDA ENTRAR LOS DEMAS Y SI EN DADO CASO SEA EXTENSION SP SOLO ADMITA AL PRIMERO
+                if (ext.equals(extFile) && statPy==false){  
+                    if ("sp".equals(ext)){
+                        statPy = true;
+                    }
+                    archivo = new File(jf.getSelectedFiles()[i].toString());
+                    rutaAbierto = archivo.toString();
+                    fr = new FileReader (archivo);
+                    br = new BufferedReader(fr);
+                    String linea;
+                    contenido = contenido + "/** "+archivo.getName()+" **/" + "\n";
+                            
+                    while((linea=br.readLine())!= null)
+                        contenido = contenido + linea + "\n";
+                }
             }
-            }catch( Exception e2){
-                e2.printStackTrace();
+            catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                try{
+                    if (null != fr){
+                        fr.close();
+                    }
+                }catch( Exception e2){
+                    e2.printStackTrace();
+                }
             }
-        }
+            i = i + 1;
+            }  
+        
         jTextArea2.setText(contenido);
-        
-        
+        if ( existente == true){
+        JOptionPane.showMessageDialog(null, "Solo se permite un archivo tipo '.SP'");
+        }    
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+        // AQUI SE AGREGA Y SE ANALIZA EL ANALIZADOR DE JSON
+        
+        //AQUI SE USA EL ANALIZADOR JSON
+        if ("JSON".equals(jLabel5.getText())){
+            generarCompilador("Lexer-JSON.jflex");
+        }
+        if ("StatPy".equals(jLabel5.getText())){
+            System.out.println("Analizador StatPy");
+        }
+        if (!"JSON".equals(jLabel5.getText()) && !"StatPy".equals(jLabel5.getText())){
+            JOptionPane.showMessageDialog(null, "Ningun Analizador fue Seleccionado");
+        } 
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -328,8 +417,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
@@ -344,6 +433,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JPopupMenu jPopupMenu2;
     private javax.swing.JScrollPane jScrollPane1;
