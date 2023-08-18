@@ -13,11 +13,13 @@ import java.util.ArrayList;
 %column
 %char
 %state CADENA
+%state TITULO
 
 
 
 %{
     String cadena="";
+    String titulo="";
     public static ArrayList<Error> ErroresLexicos = new ArrayList<Error>();
   
     
@@ -33,27 +35,30 @@ COMA = ","
 
 
 
+
 //PALABRAS RESERVADAS
 
 
 
 //EXPRESIONES REGULARES 
 
+TITULO      =  \/\/\*\*.* 
+NUMERO      =  [-+]?\d+(\.\d+)?
 SPACE       =  [\ \r\t\f\t]
 ENTER       =  [\ \n]
-TITULO      =  <\*\*[^]*\*\*>
-COMMENTARIO =  "<!"[^!]*"!>" 
+COMMENTARIO =  "/*"[^!]*"*/" 
 COMENTARIO  =  \/\/.* 
 COMILLA     =  [\"]
 
 
 
-%%
 
+%%
+<YYINITIAL> {TITULO}   { return new Symbol(sym.TITULO, yycolumn, yyline, new String(yytext()));} 
 
 <YYINITIAL> {SPACE}      {/* Espacios en blanco ignorado */}
 
-<YYINITIAL> {TITULO}   { return new Symbol(sym.TITULO, yycolumn, yyline, new String(yytext())); } 
+<YYINITIAL> {NUMERO}   { return new Symbol(sym.NUMERO, yycolumn, yyline, new String(yytext())); } 
 
 <YYINITIAL> {COMMENTARIO}  {/*ignorando comentarios multilinea */ }
 
@@ -75,12 +80,8 @@ COMILLA     =  [\"]
         [\"] { String tmp=cadena; cadena="";  yybegin(YYINITIAL); return new Symbol(sym.CADENA, yycolumn,yyline,tmp);}
         [\n] { String tmp=cadena; cadena="";    System.out.println("Se esperaba cierre de cadena");
                 yybegin(YYINITIAL);
-                System.out.println(yytext());
-             }
-        [^\"] { cadena+=yytext(); }
-
+        [^\"] { cadena+=yytext(); System.out.println(cadena); }
 }
-
 
 <YYINITIAL> . {
         String errLex = "Error lexico : '"+yytext()+"' en la linea : "+(yyline+1)+" y columna: "+(yycolumn+1);

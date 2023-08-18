@@ -5,6 +5,7 @@
 package Grafico;
 
 import Analizadores.LexicoJSON;
+import Analizadores.SintaticoJSON;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -44,7 +45,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         try {
             String ruta = "src/Analizadores/"; //ruta donde tenemos los archivos con extension .jflex y .cup
             String opcFlex[] = { ruta + nombreJflex, "-d", ruta };
-            JFlex.Main.generate(opcFlex);
+            jflex.Main.generate(opcFlex);
             String opcCUP[] = { "-destdir", ruta, "-parser", nombreCUP, ruta + archivoCUP};
             java_cup.Main.main(opcCUP);
             
@@ -337,7 +338,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                     fr = new FileReader (archivo);
                     br = new BufferedReader(fr);
                     String linea;
-                    contenido = contenido + "/** "+archivo.getName()+" **/" + "\n";
+                    contenido = contenido + "//** "+archivo.getName()+ "\n";
                 
                     while((linea=br.readLine())!= null)
                         contenido = contenido + linea + "\n";
@@ -379,26 +380,21 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         //A_Sintactico.erroresSintacticos.clear();
         LexicoJSON lexico = new LexicoJSON(new BufferedReader(new StringReader(cad)));
     
-        //SintaticoJSON sintactico = new SintaticoJSON(lexico);
-//           try {
-//               
-//            //sintactico.parse();
-//            funciona = true;
-//            if (Lexico.ErroresLexicos.isEmpty() && sintactico.erroresSintacticos.isEmpty()) {
-//               Nodo raiz = sintactico.padre;
-//               
-//              
-//              // System.out.println(EjecutarOperaciones.ejecutar(raiz));
-//                JOptionPane.showMessageDialog(null, "COMPILADO CON EXITO", "ARCHIVO CONFIGURACION", JOptionPane.INFORMATION_MESSAGE);
-//            } else {
-//                JOptionPane.showMessageDialog(null, "NO SE PUEDE COMPILAR YA QUE TIENE ERRORES: ", "", JOptionPane.INFORMATION_MESSAGE);
-//            }
-//        } catch (FileNotFoundException ex) {
-//            System.out.println("ERROR e: " + ex);
-//        } catch (Exception ex) {
-//              JOptionPane.showMessageDialog(null, "NO SE PUEDE COMPILAR YA QUE TIENE ERRORE", "", JOptionPane.INFORMATION_MESSAGE);
-//           
-//        }
+        SintaticoJSON sintactico = new SintaticoJSON(lexico);
+           try {
+             System.out.println("Intentado antes del parse");
+            sintactico.parse();
+            funciona = true;
+      
+              // System.out.println(EjecutarOperaciones.ejecutar(raiz));
+                JOptionPane.showMessageDialog(null, "COMPILADO CON EXITO", "ARCHIVO CONFIGURACION", JOptionPane.INFORMATION_MESSAGE);
+         
+        } catch (FileNotFoundException ex) {
+            System.out.println("ERROR e: " + ex);
+        } catch (Exception ex) {
+              JOptionPane.showMessageDialog(null, "NO SE PUEDE COMPILAR YA QUE TIENE ERRORE", "", JOptionPane.INFORMATION_MESSAGE);
+           
+        }
         }
         if ("StatPy".equals(jLabel5.getText())){
             System.out.println("Analizador StatPy");
