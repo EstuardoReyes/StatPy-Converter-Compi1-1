@@ -4,7 +4,7 @@
  */
 package Grafico;
 
-import Analizadores.Lexic;
+import Analizadores.LexicoJSON;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -36,14 +36,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     public VentanaPrincipal() {
         
         initComponents();   
+         generarCompilador("Lexer-JSON.jflex","SintaticoJSON","Sintactic-JSON.cup");
     }
 
     
-    private static void generarCompilador(String nombreJflex){
+    private static void generarCompilador(String nombreJflex, String nombreCUP, String archivoCUP){
         try {
             String ruta = "src/Analizadores/"; //ruta donde tenemos los archivos con extension .jflex y .cup
             String opcFlex[] = { ruta + nombreJflex, "-d", ruta };
-            jflex.Main.generate(opcFlex);
+            JFlex.Main.generate(opcFlex);
+            String opcCUP[] = { "-destdir", ruta, "-parser", nombreCUP, ruta + archivoCUP};
+            java_cup.Main.main(opcCUP);
             
         }catch (Exception e) {
             e.printStackTrace();
@@ -369,15 +372,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         
         //AQUI SE USA EL ANALIZADOR JSON
         if ("JSON".equals(jLabel5.getText())){
-            generarCompilador("Lexer-JSON.jflex");
             
                     funciona = false;
         String cad = jTextArea2.getText();
-        Lexic.ErroresLexicos.clear();
+        //Lexic.ErroresLexicos.clear();
         //A_Sintactico.erroresSintacticos.clear();
-        Lexic lexico = new Lexic(new BufferedReader(new StringReader(cad)));
+        LexicoJSON lexico = new LexicoJSON(new BufferedReader(new StringReader(cad)));
     
-        //A_Sintactico sintactico = new A_Sintactico(lexico);
+        //SintaticoJSON sintactico = new SintaticoJSON(lexico);
 //           try {
 //               
 //            //sintactico.parse();

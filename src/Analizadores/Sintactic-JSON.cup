@@ -1,0 +1,54 @@
+package Analizadores;
+
+import java_cup.runtime.Symbol;
+import java.util.ArrayList;
+import java.nio.charset.StandardCharsets;
+import java.util.Iterator;
+
+//parser  https://www.youtube.com/watch?v=I2sxJMU67ZA fuente de esto
+parser code
+{://codigo visible
+     
+    
+    public static ArrayList<String> erroresSintacticos = new ArrayList<String>();
+
+
+    public int cont = 0;
+    ArrayList<String> elementosSeparado = new ArrayList<String>();
+
+    public void syntax_error(Symbol s){  //devuelve errores sintacticos
+        System.out.println("Error de sintaxis: Linea: "+ (s.right+1) +" columna: " + (s.left+1)+ " no reconocido");
+        erroresSintacticos.add("Error sintactico: "+s.value.toString()+" Linea: "+(s.right+1)+";");
+    }
+
+    public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{ 
+        System.out.println("Error síntactico irrecuperable en la Línea " + 
+        (s.right+1)+ " Columna "+(s.left+1)+". Componente " + s.value + 
+        " no reconocido."); 
+        erroresSintacticos.add("Error Sintactico: "+s.value.toString()+" Linea: "+(s.right+1)+";");
+    }  
+
+:}
+
+terminal String  CADENA;
+terminal String LLAV_A, LLAV_C, DOSPUNTO, COMA, TITULO ;
+
+
+non terminal INICIO, SENTENCIAS, SENTENCIA;
+
+
+//AGREGAMOS LA PRECEDENCIA
+
+start with INICIO;
+INICIO ::= TITULO LLAV_A SENTENCIAS LLAV_C 
+
+SENTENCIAS ::= SENTENCIA | SENTENCIAS SENTENCIA;
+
+SENTENCIA ::= CADENA DOSPUNTO CADENA{: 
+   System.out.println("En teoria funcionando");
+:}
+| CADENA DOSPUNTO CADENA COMA;
+
+
+
+
