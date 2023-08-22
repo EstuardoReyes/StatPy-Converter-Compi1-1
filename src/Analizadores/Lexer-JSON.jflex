@@ -43,7 +43,10 @@ COMA = ","
 //EXPRESIONES REGULARES 
 
 TITULO      =  \/\/\*\*.* 
-NUMERO      =  [-+]?\d+(\.\d+)?
+DIGITO      =  [0-9]
+INT         =  {DIGITO}+
+DECIMAL     =  {DIGITO}*\.{DIGITO}+ | {DIGITO}+\.{DIGITO}*
+NUMERO      =  {INT} | {DECIMAL}
 SPACE       =  [\ \r\t\f\t]
 ENTER       =  [\ \n]
 COMMENTARIO =  "/*"[^!]*"*/" 
@@ -54,7 +57,7 @@ COMILLA     =  [\"]
 
 
 %%
-<YYINITIAL> {TITULO}   { return new Symbol(sym.TITULO, yycolumn, yyline, new String(yytext()));} 
+<YYINITIAL> {TITULO}   {System.out.println(yytext()); return new Symbol(sym.TITULO, yycolumn, yyline, new String(yytext()));  } 
 
 <YYINITIAL> {SPACE}      {/* Espacios en blanco ignorado */}
 
@@ -70,7 +73,7 @@ COMILLA     =  [\"]
 
 <YYINITIAL> {COMA}    {return new Symbol(sym.COMA, yycolumn, yyline); } 
 
-<YYINITIAL> {LLAV_C}    {return new Symbol(sym.LLAV_C, yycolumn, yyline,new String(yytext()));  } 
+<YYINITIAL> {LLAV_C}    {System.out.println(yytext()); return new Symbol(sym.LLAV_C, yycolumn, yyline,new String(yytext()));  } 
 
 <YYINITIAL> {DOSPUNTO}  { return new Symbol(sym.DOSPUNTO, yycolumn, yyline,new String(yytext())); }
  
@@ -79,13 +82,13 @@ COMILLA     =  [\"]
 <CADENA>  {
         [\"] { String tmp=cadena; cadena="";  yybegin(YYINITIAL); return new Symbol(sym.CADENA, yycolumn,yyline,tmp);}
         [\n] { String tmp=cadena; cadena="";    System.out.println("Se esperaba cierre de cadena");
-                yybegin(YYINITIAL);
-        [^\"] { cadena+=yytext(); System.out.println(cadena); }
+                yybegin(YYINITIAL);}
+        [^\"] { cadena+=yytext(); }
 }
 
 <YYINITIAL> . {
         String errLex = "Error lexico : '"+yytext()+"' en la linea : "+(yyline+1)+" y columna: "+(yycolumn+1);
-        System.out.println(errLex);
+        System.out.println(errLex+" ERROR");
         
 }
 

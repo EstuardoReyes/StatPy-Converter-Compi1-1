@@ -6,11 +6,13 @@ package Grafico;
 
 import Analizadores.LexicoJSON;
 import Analizadores.SintaticoJSON;
+import Objeto.TablaJson;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.StringReader;
+import java.util.ArrayList;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -33,6 +35,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     Boolean archivoAbierto = false;
     String rutaAbierto = "";
     Boolean funciona = false;
+    static ArrayList< TablaJson > datos = new ArrayList< TablaJson >();
     
     public VentanaPrincipal() {
         
@@ -45,7 +48,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         try {
             String ruta = "src/Analizadores/"; //ruta donde tenemos los archivos con extension .jflex y .cup
             String opcFlex[] = { ruta + nombreJflex, "-d", ruta };
-            jflex.Main.generate(opcFlex);
+            JFlex.Main.generate(opcFlex);
             String opcCUP[] = { "-destdir", ruta, "-parser", nombreCUP, ruta + archivoCUP};
             java_cup.Main.main(opcCUP);
             
