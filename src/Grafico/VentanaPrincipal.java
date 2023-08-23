@@ -48,7 +48,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         try {
             String ruta = "src/Analizadores/"; //ruta donde tenemos los archivos con extension .jflex y .cup
             String opcFlex[] = { ruta + nombreJflex, "-d", ruta };
-            JFlex.Main.generate(opcFlex);
+            jflex.Main.generate(opcFlex);
             String opcCUP[] = { "-destdir", ruta, "-parser", nombreCUP, ruta + archivoCUP};
             java_cup.Main.main(opcCUP);
             

@@ -69,18 +69,18 @@ COMILLA     =  [\"]
 
 <YYINITIAL> {COMILLA}      {yybegin(CADENA);}
 
-<YYINITIAL> {LLAV_A}    { return new Symbol(sym.LLAV_A, yycolumn, yyline,new String(yytext()));  } 
+<YYINITIAL> {LLAV_A}    {System.out.println(yytext()); return new Symbol(sym.LLAV_A, yycolumn, yyline,new String(yytext()));  } 
 
-<YYINITIAL> {COMA}    {return new Symbol(sym.COMA, yycolumn, yyline); } 
+<YYINITIAL> {COMA}    {System.out.println(yytext()); return new Symbol(sym.COMA, yycolumn, yyline); } 
 
 <YYINITIAL> {LLAV_C}    {System.out.println(yytext()); return new Symbol(sym.LLAV_C, yycolumn, yyline,new String(yytext()));  } 
 
-<YYINITIAL> {DOSPUNTO}  { return new Symbol(sym.DOSPUNTO, yycolumn, yyline,new String(yytext())); }
+<YYINITIAL> {DOSPUNTO}  { System.out.println(yytext()); return new Symbol(sym.DOSPUNTO, yycolumn, yyline,new String(yytext())); }
  
 <YYINITIAL> {ENTER}      {/* Espacios en blanco ignorado */}
 
 <CADENA>  {
-        [\"] { String tmp=cadena; cadena="";  yybegin(YYINITIAL); return new Symbol(sym.CADENA, yycolumn,yyline,tmp);}
+        [\"] { String tmp=cadena; cadena="";  yybegin(YYINITIAL);System.out.println(yytext()); return new Symbol(sym.CADENA, yycolumn,yyline,tmp);}
         [\n] { String tmp=cadena; cadena="";    System.out.println("Se esperaba cierre de cadena");
                 yybegin(YYINITIAL);}
         [^\"] { cadena+=yytext(); }

@@ -62,7 +62,7 @@ DOCUMENTO ::= TITULO:a LLAV_A SENTENCIAS LLAV_C {:
     //agregarNombre(a.substring(5));
     System.out.println(1);
 
- :};
+ :} | TITULO:a LLAV_A SENTENCIAS LLAV_C TITULO LLAV_A SENTENCIAS LLAV_C {: System.out.println(1111); :};
 
 SENTENCIAS ::= SENTENCIA | SENTENCIAS SENTENCIA;
 
