@@ -341,10 +341,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                     fr = new FileReader (archivo);
                     br = new BufferedReader(fr);
                     String linea;
-                    contenido = contenido + "//** "+archivo.getName()+ "\n";
                 
                     while((linea=br.readLine())!= null)
                         contenido = contenido + linea + "\n";
+                    contenido = contenido + "//** "+archivo.getName()+ "\n";
                 }
             }
             catch(Exception e){

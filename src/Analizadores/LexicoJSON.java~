@@ -4,7 +4,7 @@
 
 package Analizadores;
 import java_cup.runtime.*;
-import java_cup.runtime.Symbol;
+
 import java.util.ArrayList;
 
 
@@ -737,27 +737,27 @@ public class LexicoJSON implements java_cup.runtime.Scanner {
           // fall through
           case 17: break;
           case 4:
-            { System.out.println(yytext()); return new Symbol(sym.COMA, yycolumn, yyline);
+            { return new Symbol(sym.COMA, yycolumn, yyline);
             }
           // fall through
           case 18: break;
           case 5:
-            { return new Symbol(sym.NUMERO, yycolumn, yyline, new String(yytext()));
+            { System.out.println(yytext()); return new Symbol(sym.NUMERO, yycolumn, yyline, new String(yytext()));
             }
           // fall through
           case 19: break;
           case 6:
-            { System.out.println(yytext()); return new Symbol(sym.DOSPUNTO, yycolumn, yyline,new String(yytext()));
+            { return new Symbol(sym.DOSPUNTO, yycolumn, yyline,new String(yytext()));
             }
           // fall through
           case 20: break;
           case 7:
-            { System.out.println(yytext()); return new Symbol(sym.LLAV_A, yycolumn, yyline,new String(yytext()));
+            { return new Symbol(sym.LLAV_A, yycolumn, yyline,new String(yytext()));
             }
           // fall through
           case 21: break;
           case 8:
-            { System.out.println(yytext()); return new Symbol(sym.LLAV_C, yycolumn, yyline,new String(yytext()));
+            { return new Symbol(sym.LLAV_C, yycolumn, yyline,new String(yytext()));
             }
           // fall through
           case 22: break;
@@ -773,7 +773,7 @@ public class LexicoJSON implements java_cup.runtime.Scanner {
           // fall through
           case 24: break;
           case 11:
-            { String tmp=cadena; cadena="";  yybegin(YYINITIAL);System.out.println(yytext()); return new Symbol(sym.CADENA, yycolumn,yyline,tmp);
+            { String tmp=cadena; cadena=""; System.out.println(tmp); yybegin(YYINITIAL); return new Symbol(sym.CADENA, yycolumn,yyline,tmp);
             }
           // fall through
           case 25: break;
@@ -788,7 +788,7 @@ public class LexicoJSON implements java_cup.runtime.Scanner {
           // fall through
           case 27: break;
           case 14:
-            { System.out.println(yytext()); return new Symbol(sym.TITULO, yycolumn, yyline, new String(yytext()));
+            { return new Symbol(sym.TITULO, yycolumn, yyline, new String(yytext()));
             }
           // fall through
           case 28: break;

@@ -55,31 +55,26 @@ non terminal INICIO, SENTENCIAS, SENTENCIA, DATO, DOCUMENTOS, DOCUMENTO;
 start with INICIO;
 INICIO ::= DOCUMENTOS;
 
-DOCUMENTOS ::= DOCUMENTOS DOCUMENTO{:System.out.println(11);:} | DOCUMENTO{: System.out.println(10); :};
+DOCUMENTOS ::= DOCUMENTOS DOCUMENTO {:System.out.println(11);:} | DOCUMENTO{: System.out.println(10); :};
 
-DOCUMENTO ::= TITULO:a LLAV_A SENTENCIAS LLAV_C {: 
+DOCUMENTO ::= LLAV_A SENTENCIAS LLAV_C TITULO:a {: 
     System.out.println(a.substring(5));
     //agregarNombre(a.substring(5));
-    System.out.println(1);
+   
+:};
 
- :} | TITULO:a LLAV_A SENTENCIAS LLAV_C TITULO LLAV_A SENTENCIAS LLAV_C {: System.out.println(1111); :};
 
-SENTENCIAS ::= SENTENCIA | SENTENCIAS SENTENCIA;
+SENTENCIAS ::= SENTENCIAS SENTENCIA | SENTENCIA;
 
-SENTENCIA ::= DATO:b DOSPUNTO DATO:c COMA{: 
-    System.out.println(2);
+SENTENCIA ::= CADENA:b DOSPUNTO CADENA:c COMA{: 
     //agregarItems(b,c);
-    System.out.println("En teoria funcionando");
 :}
-| DATO:d DOSPUNTO DATO:e {:System.out.println("Terminando el arreglo"); 
-    System.out.println(3);
+| CADENA:b DOSPUNTO NUMERO 
+| DATO:d DOSPUNTO DATO:e {:
+    System.out.println("Terminando el arreglo"); 
+
     //agregarItems(d,e);
     //System.out.println(tablaNueva.valoresTabla);
     System.out.println(4);
 
  :};
-
-DATO ::= CADENA | NUMERO;
-
-
-
