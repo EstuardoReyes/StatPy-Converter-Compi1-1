@@ -53,9 +53,10 @@ non terminal INICIO, SENTENCIAS, SENTENCIA, DATO, DOCUMENTOS, DOCUMENTO;
 //AGREGAMOS LA PRECEDENCIA
 
 start with INICIO;
-INICIO ::= DOCUMENTOS;
+INICIO ::= LLAV_A DOCUMENTOS LLAV_C;
 
-DOCUMENTOS ::= DOCUMENTOS DOCUMENTO {:System.out.println(11);:} | DOCUMENTO{: System.out.println(10); :};
+DOCUMENTOS ::=  DOCUMENTOS DOCUMENTO {:System.out.println(11);:}
+| DOCUMENTO;
 
 DOCUMENTO ::= LLAV_A SENTENCIAS LLAV_C TITULO:a {: 
     System.out.println(a.substring(5));
@@ -69,8 +70,32 @@ SENTENCIAS ::= SENTENCIAS SENTENCIA | SENTENCIA;
 SENTENCIA ::= CADENA:b DOSPUNTO CADENA:c COMA{: 
     //agregarItems(b,c);
 :}
-| CADENA:b DOSPUNTO NUMERO 
-| DATO:d DOSPUNTO DATO:e {:
+| CADENA:b DOSPUNTO NUMERO COMA 
+|   NUMERO:d DOSPUNTO NUMERO COMA:e  {:
+    System.out.println("Terminando el arreglo"); 
+
+    //agregarItems(d,e);
+    //System.out.println(tablaNueva.valoresTabla);
+    System.out.println(4);
+
+ :}
+|   CADENA:d DOSPUNTO CADENA:e {:
+    System.out.println("Terminando el arreglo"); 
+
+    //agregarItems(d,e);
+    //System.out.println(tablaNueva.valoresTabla);
+    System.out.println(4);
+
+ :}
+|   CADENA:d DOSPUNTO NUMERO:e {:
+    System.out.println("Terminando el arreglo"); 
+
+    //agregarItems(d,e);
+    //System.out.println(tablaNueva.valoresTabla);
+    System.out.println(4);
+
+ :}
+|   NUMERO:d DOSPUNTO NUMERO:e {:
     System.out.println("Terminando el arreglo"); 
 
     //agregarItems(d,e);
