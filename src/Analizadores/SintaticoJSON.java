@@ -36,7 +36,7 @@ public class SintaticoJSON extends java_cup.runtime.lr_parser {
   /** Production table. */
   protected static final short _production_table[][] = 
     unpackFromStrings(new String[] {
-    "\000\015\000\002\002\004\000\002\002\005\000\002\006" +
+    "\000\015\000\002\002\004\000\002\002\003\000\002\006" +
     "\004\000\002\006\003\000\002\007\006\000\002\003\004" +
     "\000\002\003\003\000\002\004\006\000\002\004\006\000" +
     "\002\004\006\000\002\004\005\000\002\004\005\000\002" +
@@ -48,22 +48,21 @@ public class SintaticoJSON extends java_cup.runtime.lr_parser {
   /** Parse-action table. */
   protected static final short[][] _action_table = 
     unpackFromStrings(new String[] {
-    "\000\030\000\004\006\004\001\002\000\004\006\007\001" +
-    "\002\000\004\002\006\001\002\000\004\002\001\001\002" +
-    "\000\006\004\017\005\014\001\002\000\006\006\007\007" +
-    "\013\001\002\000\006\006\ufffe\007\ufffe\001\002\000\006" +
-    "\006\uffff\007\uffff\001\002\000\004\002\000\001\002\000" +
-    "\004\010\030\001\002\000\010\004\ufffb\005\ufffb\007\ufffb" +
-    "\001\002\000\010\004\017\005\014\007\026\001\002\000" +
-    "\004\010\020\001\002\000\006\004\022\005\021\001\002" +
-    "\000\012\004\ufff6\005\ufff6\007\ufff6\011\024\001\002\000" +
-    "\012\004\ufff7\005\ufff7\007\ufff7\011\023\001\002\000\010" +
-    "\004\ufffa\005\ufffa\007\ufffa\001\002\000\010\004\ufff9\005" +
-    "\ufff9\007\ufff9\001\002\000\010\004\ufffc\005\ufffc\007\ufffc" +
-    "\001\002\000\004\012\027\001\002\000\006\006\ufffd\007" +
-    "\ufffd\001\002\000\004\005\031\001\002\000\012\004\ufff5" +
-    "\005\ufff5\007\ufff5\011\032\001\002\000\010\004\ufff8\005" +
-    "\ufff8\007\ufff8\001\002" });
+    "\000\026\000\004\006\004\001\002\000\006\004\015\005" +
+    "\012\001\002\000\004\002\000\001\002\000\006\002\ufffe" +
+    "\006\004\001\002\000\004\002\010\001\002\000\004\002" +
+    "\001\001\002\000\004\002\uffff\001\002\000\004\010\026" +
+    "\001\002\000\010\004\ufffb\005\ufffb\007\ufffb\001\002\000" +
+    "\010\004\015\005\012\007\024\001\002\000\004\010\016" +
+    "\001\002\000\006\004\020\005\017\001\002\000\012\004" +
+    "\ufff6\005\ufff6\007\ufff6\011\022\001\002\000\012\004\ufff7" +
+    "\005\ufff7\007\ufff7\011\021\001\002\000\010\004\ufffa\005" +
+    "\ufffa\007\ufffa\001\002\000\010\004\ufff9\005\ufff9\007\ufff9" +
+    "\001\002\000\010\004\ufffc\005\ufffc\007\ufffc\001\002\000" +
+    "\004\012\025\001\002\000\006\002\ufffd\006\ufffd\001\002" +
+    "\000\004\005\027\001\002\000\012\004\ufff5\005\ufff5\007" +
+    "\ufff5\011\030\001\002\000\010\004\ufff8\005\ufff8\007\ufff8" +
+    "\001\002" });
 
   /** Access to parse-action table. */
   public short[][] action_table() {return _action_table;}
@@ -71,15 +70,15 @@ public class SintaticoJSON extends java_cup.runtime.lr_parser {
   /** <code>reduce_goto</code> table. */
   protected static final short[][] _reduce_table = 
     unpackFromStrings(new String[] {
-    "\000\030\000\004\002\004\001\001\000\006\006\007\007" +
-    "\010\001\001\000\002\001\001\000\002\001\001\000\006" +
-    "\003\015\004\014\001\001\000\004\007\011\001\001\000" +
-    "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
-    "\001\001\000\002\001\001\000\004\004\024\001\001\000" +
-    "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
-    "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
+    "\000\026\000\010\002\006\006\004\007\005\001\001\000" +
+    "\006\003\013\004\012\001\001\000\002\001\001\000\006" +
+    "\006\010\007\005\001\001\000\002\001\001\000\002\001" +
     "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
-    "\000\002\001\001\000\002\001\001" });
+    "\000\004\004\022\001\001\000\002\001\001\000\002\001" +
+    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
+    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
+    "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
+    "\001\001" });
 
   /** Access to <code>reduce_goto</code> table. */
   public short[][] reduce_table() {return _reduce_table;}
@@ -190,16 +189,16 @@ class CUP$SintaticoJSON$actions {
           return CUP$SintaticoJSON$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 1: // INICIO ::= LLAV_A DOCUMENTOS LLAV_C 
+          case 1: // INICIO ::= DOCUMENTOS 
             {
               Object RESULT =null;
 
-              CUP$SintaticoJSON$result = parser.getSymbolFactory().newSymbol("INICIO",0, ((java_cup.runtime.Symbol)CUP$SintaticoJSON$stack.elementAt(CUP$SintaticoJSON$top-2)), ((java_cup.runtime.Symbol)CUP$SintaticoJSON$stack.peek()), RESULT);
+              CUP$SintaticoJSON$result = parser.getSymbolFactory().newSymbol("INICIO",0, ((java_cup.runtime.Symbol)CUP$SintaticoJSON$stack.peek()), ((java_cup.runtime.Symbol)CUP$SintaticoJSON$stack.peek()), RESULT);
             }
           return CUP$SintaticoJSON$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 2: // DOCUMENTOS ::= DOCUMENTOS DOCUMENTO 
+          case 2: // DOCUMENTOS ::= DOCUMENTO DOCUMENTOS 
             {
               Object RESULT =null;
 		System.out.println(11);
